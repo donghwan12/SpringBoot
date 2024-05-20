@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div th:insert="~{th/fragments/header::headerfragment}"></div>
+        <main>메인영역</main>
+        <div th:replace="~{th/fragments/footer::footerFragment}"></div>
+
+    </div>
+</body>
+</html>
