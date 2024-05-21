@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Kakao Profile</title>
+</head>
+<body>
+<h1>Kakao Profile</h1>
+
+<div>
+    <h2>Profile Information</h2>
+    <p><strong>ID:</strong> <span th:text="${response.id}"></span></p>
+    <p><strong>Nickname:</strong> <span th:text="${response.properties.nickname}"></span></p>
+    <p><strong>Email:</strong> <span th:text="${response.kakao_account.email}"></span></p>
+    <p><strong>Profile Image:</strong></p>
+    <img th:src="${response.properties.profile_image}" alt="Profile Image"/>
+</div>
+</body>
+</html>
