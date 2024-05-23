@@ -103,7 +103,6 @@ public class C01NaverLoginAPIController {
         return "redirect:http://nid.naver.com/nidlogin.logout?returl=https://www.naver.com/";
 
         }
-    }
     //naver profile
     @Data
     private static class Response{
@@ -120,7 +119,7 @@ public class C01NaverLoginAPIController {
     }
 
 
-//-----Naver로그인 토큰
+    //-----Naver로그인 토큰
     @Data
     private static class NaverResponse{
         public String access_token;
@@ -128,4 +127,5 @@ public class C01NaverLoginAPIController {
         public String token_type;
         public String expires_in;
     }
-}
+    }
+
