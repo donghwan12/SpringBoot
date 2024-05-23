@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<h1>KAKAO KARLO MAIN PAGE</h1>
+
+생성 이미지 키워드 입력 : <input class="prompt" /><a class="karlo_btn" href="javascript:void(0)">요청</a>
+<hr>
+<div class="display"></div>
+
+<!-- axios -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.7.2/axios.min.js" integrity="sha512-JSCFHhKDilTRRXe9ak/FJ28dcpOJxzQaCd3Xg8MyF6XFjODhy/YMCM8HW0TFDckNHWUewW+kfvhin43hKtJxAw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+    const karlo_btn = document.querySelector('.karlo_btn');
+    karlo_btn.addEventListener('click',function(){
+
+        const prompt = document.querySelector('.prompt');
+
+        axios.get("/kakao/karlo/req/"+prompt.value)
+        .then(resp=>{
+            console.log(resp)
+            console.log(resp.data.images[0].image);
+
+            const imageTag=document.createElement("img");
+            imageTag.setAttribute("src",resp.data.images[0].image);
+            imageTag.setAttribute("width","500px");
+            imageTag.setAttribute("height","500px");
+            const displayEl=document.querySelector(".display");
+            displayEl.prepend(imageTag);
+        })
+        .catch(err=>{console.log(err)});
+
+    });
+
+</script>
+
+</body>
+</html>
