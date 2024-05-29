@@ -1,5 +1,6 @@
 package com.example.app.config.auth.logoutHandler;
 
+import com.example.app.config.auth.PrincipalDetails;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -8,11 +9,32 @@ import org.springframework.security.web.authentication.logout.LogoutSuccessHandl
 
 import java.io.IOException;
 
+
 public class CustomLogoutsuccessHandler implements LogoutSuccessHandler {
+
+    //@Value("${spring.security.oauth2.client.registration.kakao.client-id}")
+    private String KAKAO_CLIENT_ID="3d94f21ef48759eb36a66c5d7be44732";
+    //@Value("${spring.security.oauth2.client.kakao.logout.redirect.uri}")
+    private String KAKAO_LOGOUT_REDIRECT_URI="http://localhost:8080/login";
+
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
-        // TODO Auto-generated method stub
-        System.out.println("CustomLogoutSuccessHandler's onLogoutSuccess() invoke..");
-        response.sendRedirect(request.getContextPath());
+        System.out.println("CustomLogoutSuccessHandler's onLogoutSuccess()");
+        System.out.println("KAKAO_CLIENT_ID : " + KAKAO_CLIENT_ID);
+        System.out.println("KAKAO_LOGOUT_REDIRECT_URI : " + KAKAO_LOGOUT_REDIRECT_URI);
+
+        PrincipalDetails principalDetails = (PrincipalDetails)authentication.getPrincipal();
+        String provider = principalDetails.getUserDto().getProvider();
+
+
+
+        //Kakao Server Disconn...
+        if(provider!=null &&"kakao".equals(provider)) {
+            response.sendRedirect("https://kauth.kakao.com/oauth/logout?client_id=" + KAKAO_CLIENT_ID + "&logout_redirect_uri=" + KAKAO_LOGOUT_REDIRECT_URI);
+            return ;
+        }
+
+
+        response.sendRedirect("/");
     }
 }
